@@ -1,0 +1,79 @@
+/*
+ * Vertex design tokens — shared by vertexevsolutions.com and, later,
+ * vertexevhub.com. Three layers:
+ *   1. Primitives  (--vx-blue-*, --vx-graphite-*): raw values sampled from the logo
+ *   2. Semantic    (--vx-bg, --vx-fg, --vx-accent…): what components use
+ *   3. Theme       ([data-theme]): remaps semantic tokens per theme
+ *
+ * Contrast (WCAG 2.2), measured on the default ground of each theme:
+ *   dark  fg 18.3:1 · muted 8.1:1 · accent-text 7.4:1 · white on accent 5.9:1
+ *   light fg 18.2:1 · muted 7.1:1 · accent-text 6.7:1
+ * --vx-blue-600 on the dark ground is only 3.4:1: use it for fills, large
+ * display type and icons, never for body text. Text uses --vx-accent-text.
+ */
+:root {
+  /* 1. Primitives — sampled from the supplied logo */
+  --vx-blue-300: #5c9dff;
+  --vx-blue-400: #0072fe; /* blade, bright end */
+  --vx-blue-600: #0050fd; /* blade, core */
+  --vx-blue-700: #0046dc;
+  --vx-blue-900: #00249e; /* blade, deep end */
+  --vx-ink: #020202; /* wordmark letterforms */
+  --vx-paper: #f5f7fa;
+
+  --vx-graphite-950: #06080b;
+  --vx-graphite-900: #0b0f14;
+  --vx-graphite-850: #111720;
+  --vx-graphite-800: #18202b;
+  --vx-graphite-400: #9aa6b6;
+  --vx-slate-600: #4a5564;
+  --vx-slate-100: #e7eaef;
+  --vx-slate-50: #f6f7f9;
+
+  --vx-blade: linear-gradient(135deg, var(--vx-blue-400) 0%, var(--vx-blue-600) 55%, var(--vx-blue-900) 100%);
+  --vx-blade-angle: 135deg;
+
+  /* Motion */
+  --vx-dur-fast: 160ms;
+  --vx-dur: 320ms;
+  --vx-dur-slow: 700ms;
+
+  /* Radius — the wordmark is squared with soft corners */
+  --vx-radius-sm: 4px;
+  --vx-radius: 8px;
+  --vx-radius-lg: 14px;
+}
+
+/* 2 + 3. Semantic tokens — dark is the default theme */
+:root,
+[data-theme="dark"] {
+  --vx-scheme: dark;
+  --vx-bg: var(--vx-graphite-950);
+  --vx-surface: var(--vx-graphite-900);
+  --vx-surface-2: var(--vx-graphite-850);
+  --vx-fg: #f2f5f9;
+  --vx-muted: var(--vx-graphite-400);
+  --vx-line: rgb(255 255 255 / 0.08);
+  --vx-line-strong: rgb(255 255 255 / 0.16);
+  --vx-accent: var(--vx-blue-600);
+  --vx-accent-text: var(--vx-blue-300);
+  --vx-on-accent: #ffffff;
+  --vx-logo-ink: var(--vx-paper);
+  --vx-glow: rgb(0 80 253 / 0.35);
+}
+
+[data-theme="light"] {
+  --vx-scheme: light;
+  --vx-bg: var(--vx-slate-50);
+  --vx-surface: #ffffff;
+  --vx-surface-2: var(--vx-slate-100);
+  --vx-fg: #0a0d12;
+  --vx-muted: var(--vx-slate-600);
+  --vx-line: rgb(10 13 18 / 0.1);
+  --vx-line-strong: rgb(10 13 18 / 0.18);
+  --vx-accent: var(--vx-blue-600);
+  --vx-accent-text: var(--vx-blue-700);
+  --vx-on-accent: #ffffff;
+  --vx-logo-ink: var(--vx-ink);
+  --vx-glow: rgb(0 80 253 / 0.18);
+}

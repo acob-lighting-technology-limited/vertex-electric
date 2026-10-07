@@ -1,0 +1,64 @@
+@import "tailwindcss";
+@import "../ui/tokens.css";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Map the semantic tokens into Tailwind so utilities like bg-surface,
+   text-muted and border-line follow the active theme. */
+@theme inline {
+  --color-bg: var(--vx-bg);
+  --color-surface: var(--vx-surface);
+  --color-surface-2: var(--vx-surface-2);
+  --color-fg: var(--vx-fg);
+  --color-muted: var(--vx-muted);
+  --color-line: var(--vx-line);
+  --color-line-strong: var(--vx-line-strong);
+  --color-accent: var(--vx-accent);
+  --color-accent-text: var(--vx-accent-text);
+  --color-on-accent: var(--vx-on-accent);
+  --color-blue-400: var(--vx-blue-400);
+  --color-blue-600: var(--vx-blue-600);
+  --color-blue-900: var(--vx-blue-900);
+  --color-ink: var(--vx-ink);
+  --color-paper: var(--vx-paper);
+
+  --font-display: var(--font-unbounded);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+
+  --ease-blade: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  background: var(--vx-bg);
+  color: var(--vx-fg);
+  color-scheme: var(--vx-scheme);
+}
+
+body {
+  background: var(--vx-bg);
+  color: var(--vx-fg);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--vx-blue-600);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--vx-accent-text);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
