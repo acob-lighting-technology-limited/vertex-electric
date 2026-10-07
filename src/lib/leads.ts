@@ -1,12 +1,13 @@
 import { z } from "zod";
 
-export const LEAD_TYPES = ["price", "viewing", "order"] as const;
+export const LEAD_TYPES = ["price", "viewing", "order", "charging"] as const;
 export type LeadType = (typeof LEAD_TYPES)[number];
 
 export const leadTypeLabel: Record<LeadType, string> = {
   price: "Price request",
   viewing: "Viewing / test drive",
   order: "Order on request",
+  charging: "Home charging / solar",
 };
 
 const optionalText = (max: number) =>

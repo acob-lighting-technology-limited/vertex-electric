@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Logo } from "@vertex/ui/brand/logo";
 import { Reveal } from "@vertex/ui/motion/reveal";
 import { Container } from "@vertex/ui/primitives/container";
-import { formatPhone, nav, site, whatsappHref } from "@/lib/site";
+import { footerNav, formatPhone, site, whatsappHref } from "@/lib/site";
 import { CopyrightYear } from "./copyright-year";
 import { FooterWordmark } from "./footer-wordmark";
 
@@ -19,7 +19,7 @@ export function SiteFooter() {
           <div>
             <p className="font-mono text-xs tracking-[0.2em] text-muted uppercase">Explore</p>
             <ul className="mt-4 space-y-2.5">
-              {nav.map((n) => (
+              {footerNav.map((n) => (
                 <li key={n.href}>
                   <Link href={n.href} className="link-underline">
                     {n.label}
@@ -69,7 +69,10 @@ export function SiteFooter() {
 
       <Container className="flex flex-col gap-2 border-t border-line py-6 text-xs text-muted sm:flex-row sm:justify-between">
         <p>
-          © <CopyrightYear /> {site.legalName}
+          © <CopyrightYear /> {site.legalName} ·{" "}
+          <Link href="/privacy" className="link-underline">
+            Privacy
+          </Link>
         </p>
         <p>Vehicle names and marks belong to their manufacturers; Vertex is an independent importer.</p>
       </Container>

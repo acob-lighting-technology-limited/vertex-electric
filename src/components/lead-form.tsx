@@ -2,6 +2,7 @@
 
 import { Loader2, MessageCircle, Phone } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
+import Link from "next/link";
 import { useActionState, useId } from "react";
 import { Button } from "@vertex/ui/primitives/button";
 import { cn } from "@vertex/ui/lib/cn";
@@ -245,7 +246,13 @@ export function LeadForm({ type, stockNumber, vehicleLabel, submitLabel, whatsap
           submitLabel
         )}
       </Button>
-      <p className="text-xs text-muted">We only use your details to respond to this request.</p>
+      <p className="text-xs text-muted">
+        We only use your details to respond to this request. See our{" "}
+        <Link href="/privacy" className="underline underline-offset-2 hover:text-fg">
+          privacy policy
+        </Link>
+        .
+      </p>
     </form>
   );
 }

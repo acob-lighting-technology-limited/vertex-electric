@@ -31,5 +31,16 @@ export function whatsappHref(message: string) {
 export const nav = [
   { href: "/inventory", label: "Inventory" },
   { href: "/order", label: "Order on request" },
+  { href: "/charging", label: "Charging" },
+  { href: "/about", label: "About" },
+] as const;
+
+export const footerNav = [
+  { href: "/inventory", label: "Inventory" },
+  { href: "/order", label: "Order on request" },
+  { href: "/range-planner", label: "Will an EV work for me?" },
+  { href: "/charging", label: "Charging" },
   { href: "/showroom", label: "Showroom" },
+  { href: "/about", label: "About Vertex" },
+  { href: "/faq", label: "FAQ" },
 ] as const;
