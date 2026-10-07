@@ -10,10 +10,12 @@ import { Container } from "@vertex/ui/primitives/container";
 import { ChargeMeter } from "@/components/charge-meter";
 import { Hero } from "@/components/hero";
 import { JourneyTimeline } from "@/components/journey-timeline";
+import { LagosStory } from "@/components/lagos-story";
 import { PageTransition } from "@/components/page-transition";
 import { ScrollOrbit } from "@/components/scroll-orbit";
 import { VehicleCard } from "@/components/vehicle-card";
 import { getFeaturedVehicles } from "@/lib/inventory";
+import { storyFrames } from "@/lib/stories";
 
 const reasons = [
   { title: "Lower running costs", body: "Electricity costs far less per kilometre than petrol — and there's no queue at the pump." },
@@ -151,6 +153,8 @@ export default async function HomePage() {
             points={reasons}
           />
         </div>
+
+        <LagosStory frames={storyFrames} />
 
         {/* Import journey */}
         <section className="py-24 sm:py-32">
