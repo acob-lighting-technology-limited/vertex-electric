@@ -4,7 +4,8 @@ import { Container } from "@vertex/ui/primitives/container";
 import { ThemeToggle } from "@vertex/ui/theme/theme-toggle";
 import { CopyrightYear } from "@/components/copyright-year";
 import { DesktopNav, MobileNav } from "@/components/site-nav";
-import { nav, site } from "@/lib/site";
+import { formatPhone, nav, site } from "@/lib/site";
+import { WhatsAppButton } from "@/components/whatsapp-button";
 
 export default function SiteLayout({ children }: LayoutProps<"/">) {
   return (
@@ -32,6 +33,8 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
         {children}
       </main>
 
+      <WhatsAppButton />
+
       <footer className="mt-24 border-t border-line py-14 text-sm">
         <Container className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
@@ -56,7 +59,7 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
               {site.phone && (
                 <li>
                   <a href={`tel:${site.phone}`} className="hover:text-fg">
-                    {site.phone}
+                    {formatPhone(site.phone)}
                   </a>
                 </li>
               )}

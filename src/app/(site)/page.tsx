@@ -1,27 +1,24 @@
-import { ArrowRight, BatteryCharging, Gauge, PackageSearch, Ship, Sun, Wrench } from "lucide-react";
-import Image from "next/image";
+import { ArrowRight, BatteryCharging, PackageSearch, Ship } from "lucide-react";
 import Link from "next/link";
 import { BladeDivider } from "@vertex/ui/primitives/blade-divider";
 import { ButtonLink } from "@vertex/ui/primitives/button";
 import { Container } from "@vertex/ui/primitives/container";
 import { Hero } from "@/components/hero";
+import { ScrollOrbit } from "@/components/scroll-orbit";
 import { SectionHeading } from "@/components/section-heading";
 import { VehicleCard } from "@/components/vehicle-card";
 import { getFeaturedVehicles } from "@/lib/inventory";
 
 const reasons = [
   {
-    icon: Gauge,
     title: "Lower running costs",
     body: "Electricity costs far less per kilometre than petrol — and there's no queue at the pump.",
   },
   {
-    icon: Wrench,
     title: "Far less maintenance",
     body: "No oil changes, spark plugs or gearbox servicing. Fewer moving parts, fewer surprises.",
   },
   {
-    icon: Sun,
     title: "Charge on sunshine",
     body: "Pair your EV with a solar home-charging system installed by our sister company, ACOB Lighting.",
   },
@@ -87,33 +84,15 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      <section className="py-20">
-        <Container className="grid items-center gap-12 lg:grid-cols-2">
-          <div className="relative aspect-[16/10] overflow-hidden rounded-(--vx-radius-lg) bg-[#06080b]">
-            <Image
-              src="/media/hero/h3-1920.webp"
-              alt="A graphite electric sedan in a dark studio, outlined by a blue rim light"
-              fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
-            />
-          </div>
-          <div>
-            <SectionHeading eyebrow="Why electric" title="Built for how Nigeria drives next" />
-            <ul className="mt-8 space-y-6">
-              {reasons.map((r) => (
-                <li key={r.title} className="flex gap-4">
-                  <r.icon className="mt-0.5 size-6 shrink-0 text-accent-text" aria-hidden />
-                  <div>
-                    <p className="font-medium">{r.title}</p>
-                    <p className="mt-1 text-muted">{r.body}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Container>
-      </section>
+      <ScrollOrbit
+        frameCount={73}
+        framePattern="/media/h3/{w}/f-{i}.webp"
+        poster="/media/h3/1280/f-001.webp"
+        posterAlt="A graphite electric sedan in a dark studio, outlined by a blue rim light"
+        eyebrow="Why electric"
+        title="Built for how Nigeria drives next"
+        points={reasons.map(({ title, body }) => ({ title, body }))}
+      />
 
       <section className="py-20">
         <Container>

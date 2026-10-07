@@ -6,6 +6,7 @@ import { Button } from "@vertex/ui/primitives/button";
 import { cn } from "@vertex/ui/lib/cn";
 import { submitLead } from "@/app/actions/lead";
 import type { LeadState, LeadType } from "@/lib/leads";
+import { formatPhone } from "@/lib/site";
 
 type Props = {
   type: LeadType;
@@ -180,7 +181,7 @@ export function LeadForm({ type, stockNumber, vehicleLabel, submitLabel, whatsap
                 )}
                 {phone && (
                   <a href={`tel:${phone}`} className="inline-flex items-center gap-1.5 underline-offset-4 hover:underline">
-                    <Phone className="size-4" aria-hidden /> Call {phone}
+                    <Phone className="size-4" aria-hidden /> Call {formatPhone(phone)}
                   </a>
                 )}
               </p>

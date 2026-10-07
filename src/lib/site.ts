@@ -17,6 +17,12 @@ export const site = {
   showroom: null as null | { address: string; mapUrl?: string; hours: { days: string; time: string }[] },
 };
 
+/** "+2347058786478" -> "+234 705 878 6478" for display; links keep the raw number. */
+export function formatPhone(raw: string) {
+  const d = raw.replace(/\D/g, "");
+  return d.startsWith("234") && d.length === 13 ? `+234 ${d.slice(3, 6)} ${d.slice(6, 9)} ${d.slice(9)}` : raw;
+}
+
 export function whatsappHref(message: string) {
   if (!site.whatsapp) return undefined;
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(message)}`;

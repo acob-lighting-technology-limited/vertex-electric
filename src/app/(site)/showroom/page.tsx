@@ -1,9 +1,9 @@
-import { Clock, MapPin } from "lucide-react";
+import { Clock, MapPin, Phone } from "lucide-react";
 import type { Metadata } from "next";
 import { Container } from "@vertex/ui/primitives/container";
 import { LeadForm } from "@/components/lead-form";
 import { SectionHeading } from "@/components/section-heading";
-import { site, whatsappHref } from "@/lib/site";
+import { formatPhone, site, whatsappHref } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Showroom",
@@ -35,6 +35,37 @@ export default function ShowroomPage() {
               )}
             </div>
           </div>
+          {(site.phone || site.email || wa) && (
+            <div className="flex gap-4">
+              <Phone className="mt-0.5 size-5 shrink-0 text-accent-text" aria-hidden />
+              <div>
+                <p className="font-medium">Contact</p>
+                <ul className="mt-1 space-y-1 text-muted">
+                  {site.phone && (
+                    <li>
+                      <a href={`tel:${site.phone}`} className="hover:text-fg">
+                        {formatPhone(site.phone)}
+                      </a>
+                    </li>
+                  )}
+                  {wa && (
+                    <li>
+                      <a href={wa} target="_blank" rel="noopener noreferrer" className="hover:text-fg">
+                        WhatsApp
+                      </a>
+                    </li>
+                  )}
+                  {site.email && (
+                    <li>
+                      <a href={`mailto:${site.email}`} className="hover:text-fg">
+                        {site.email}
+                      </a>
+                    </li>
+                  )}
+                </ul>
+              </div>
+            </div>
+          )}
           <div className="flex gap-4">
             <Clock className="mt-0.5 size-5 shrink-0 text-accent-text" aria-hidden />
             <div>

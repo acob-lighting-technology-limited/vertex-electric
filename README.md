@@ -46,6 +46,22 @@ python scripts/brand/build-logo.py
 
 You need Python 3 with `opencv-python`, `pillow` and `potracer`. The build writes `public/brand/*.svg` and `src/ui/brand/logo-paths.ts`.
 
+## Environment
+
+- **`.env`** is committed and holds only public, non-secret defaults: the WhatsApp, phone and contact email.
+- **`.env.local` and host settings** hold secrets and per-environment values. See `.env.example`.
+- **Lead forms** deliver by email once `RESEND_API_KEY`, `LEAD_TO_EMAIL` and `LEAD_FROM_EMAIL` are set. Until then they tell the visitor that online enquiries aren't live yet.
+
+## Media pipelines
+
+| Script | What it does |
+|---|---|
+| `scripts/inventory/process-photos.py <dir> VX-000N` | Processes real stock photos into `public/inventory/<stock>/`: blurs plates (automatic for green NEV plates, plus the manual boxes in `manual-redactions.json`), strips EXIF and writes WebP plus `manifest.json`. **Review the debug sheet before publishing.** |
+| `scripts/higgsfield/gen-stills.sh` | Generates key-still takes for H1–H3 |
+| `scripts/higgsfield/motion-test.sh` | Runs cheap Seedance Mini motion tests |
+| `scripts/higgsfield/final-render.sh` | Renders the Seedance 2.5 finals |
+| `scripts/media/encode-hero.sh` | Encodes the hero loops as AV1 + H.264 with posters, and exports the H3 frames for the scroll-scrub |
+
 ## Rules baked into the content model
 
 - **Prices are never public.** `vehicle.internal.priceNgn` is staff-only. Public GROQ queries must use explicit projections that exclude `internal`.
