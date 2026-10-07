@@ -128,7 +128,7 @@ export function VehicleGallery({ photos, title, slug }: { photos: VehiclePhoto[]
         </div>
       </ViewTransition>
 
-      <ul ref={thumbsRef} className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none]" aria-label={`${title} photos`} data-lenis-prevent>
+      <ul ref={thumbsRef} className="scrollbar-none flex gap-2 overflow-x-auto pb-1" aria-label={`${title} photos`} data-lenis-prevent>
         {photos.map((p, i) => (
           <li key={p.src} className="shrink-0">
             <button
