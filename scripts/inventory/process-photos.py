@@ -43,17 +43,30 @@ def green_plates(img: Image.Image):
         ratio = w / h
         fill = area / (w * h)
         if 1.8 <= ratio <= 5.5 and fill > 0.45:
-            pad = int(h * 0.35)
-            boxes.append((int(x - pad), int(y - pad), int(x + w + pad), int(y + h + pad)))
+            # NEV plates fade from white (top) to green, so colour only finds the lower part: pad generously, more upwards.
+            pad = int(h * 0.45)
+            boxes.append((int(x - pad), int(y - h * 0.9), int(x + w + pad), int(y + h + pad)))
     return boxes
 
 
 def redact(img: Image.Image, boxes):
+    """Heavy blur inside each box, feathered at the edges so it blends instead of reading as a grey block."""
     for x0, y0, x1, y1 in boxes:
-        box = (max(0, x0), max(0, y0), min(img.width, x1), min(img.height, y1))
-        region = img.crop(box)
-        radius = int(max(8, (box[3] - box[1]) // 2))
-        img.paste(region.filter(ImageFilter.GaussianBlur(radius)), box)
+        h = max(1, y1 - y0)
+        feather = max(6, h // 3)
+        # Work on an expanded crop so the blur samples real surroundings.
+        ex = (max(0, x0 - feather * 2), max(0, y0 - feather * 2), min(img.width, x1 + feather * 2), min(img.height, y1 + feather * 2))
+        region = img.crop(ex)
+        # Pixelate first (destroys characters irrecoverably), then blur to soften.
+        small = region.resize((max(1, region.width // 10), max(1, region.height // 10)), Image.BILINEAR)
+        blurred = small.resize(region.size, Image.BILINEAR).filter(ImageFilter.GaussianBlur(max(4, h // 6)))
+        mask = Image.new("L", region.size, 0)
+        inner = (x0 - ex[0], y0 - ex[1], x1 - ex[0], y1 - ex[1])
+        mask.paste(255, inner)
+        mask = mask.filter(ImageFilter.GaussianBlur(feather))
+        # The whole box stays fully covered; the feather only fades outward beyond it.
+        mask.paste(255, inner)
+        img.paste(Image.composite(blurred, region, mask), ex[:2])
     return img
 
 
@@ -66,7 +79,8 @@ for idx, p in enumerate(files, start=1):
     boxes = green_plates(img) if cfg.get("auto", True) else []
     # Manual boxes are stored as fractions of width/height so they survive resizes.
     for fx0, fy0, fx1, fy1 in cfg.get("boxes", {}).get(p.name, []):
-        boxes.append((int(fx0 * img.width), int(fy0 * img.height), int(fx1 * img.width), int(fy1 * img.height)))
+        mx, my = (fx1 - fx0) * 0.12, (fy1 - fy0) * 0.12
+        boxes.append((int((fx0 - mx) * img.width), int((fy0 - my) * img.height), int((fx1 + mx) * img.width), int((fy1 + my) * img.height)))
     img = redact(img, boxes)
     img.thumbnail((MAX, MAX), Image.LANCZOS)
     name = f"{idx:02d}.webp"

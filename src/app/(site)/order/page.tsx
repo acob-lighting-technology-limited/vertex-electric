@@ -1,7 +1,9 @@
 import { ClipboardCheck, Search, Ship, Truck } from "lucide-react";
 import type { Metadata } from "next";
+import { Reveal, Stagger, StaggerItem } from "@vertex/ui/motion/reveal";
 import { Container } from "@vertex/ui/primitives/container";
 import { LeadForm } from "@/components/lead-form";
+import { PageTransition } from "@/components/page-transition";
 import { SectionHeading } from "@/components/section-heading";
 import { site, whatsappHref } from "@/lib/site";
 
@@ -20,36 +22,41 @@ const steps = [
 export default function OrderPage() {
   const wa = whatsappHref("Hi Vertex, I'd like to order an EV on request.");
   return (
-    <Container className="py-16 sm:py-20">
-      <SectionHeading
-        as="h1"
-        eyebrow="Order on request"
-        title="The EV you want, brought home"
-        description="Not in stock? We source electric vehicles from China and other markets to your specification."
-      />
+    <PageTransition>
+      <Container className="py-16 sm:py-24">
+        <SectionHeading
+          as="h1"
+          eyebrow="Order on request"
+          title="The EV you want, brought home"
+          description="Not in stock? We source electric vehicles from China and other markets to your specification."
+        />
 
-      <div className="mt-14 grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
-        <ol className="space-y-8">
-          {steps.map((s, i) => (
-            <li key={s.title} className="flex gap-4">
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-line-strong">
-                <s.icon className="size-4 text-accent-text" aria-hidden />
-              </span>
-              <div>
-                <p className="font-mono text-xs text-muted">Step {i + 1}</p>
-                <p className="mt-1 font-medium">{s.title}</p>
-                <p className="mt-1 text-muted">{s.body}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
+        <div className="mt-16 grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
+          <Stagger as="ol" className="relative space-y-2" stagger={0.12}>
+            <span aria-hidden className="absolute top-6 bottom-6 left-6 w-px bg-line" />
+            {steps.map((s, i) => (
+              <StaggerItem key={s.title} as="li" className="group relative flex gap-5 rounded-(--vx-radius-lg) p-3 transition-colors hover:bg-surface">
+                <span className="relative z-10 flex size-12 shrink-0 items-center justify-center rounded-full border border-line-strong bg-bg transition-colors group-hover:border-accent">
+                  <s.icon className="size-5 text-accent-text" aria-hidden />
+                </span>
+                <div className="pt-1">
+                  <p className="font-mono text-xs text-muted">Step 0{i + 1}</p>
+                  <p className="mt-1 font-display text-lg font-medium">{s.title}</p>
+                  <p className="mt-1 text-muted">{s.body}</p>
+                </div>
+              </StaggerItem>
+            ))}
+          </Stagger>
 
-        <div className="rounded-(--vx-radius-lg) border border-line bg-surface p-6 sm:p-8">
-          <h2 className="font-display text-xl font-medium">Start your order</h2>
-          <p className="mt-1 text-sm text-muted">No commitment — we&apos;ll come back with options and a quote.</p>
-          <LeadForm type="order" submitLabel="Send request" whatsappHref={wa} phone={site.phone} className="mt-6" />
+          <Reveal delay={0.35}>
+            <div className="rounded-(--vx-radius-lg) border border-line bg-surface p-6 sm:p-8 lg:sticky lg:top-24">
+              <h2 className="font-display text-2xl font-medium">Start your order</h2>
+              <p className="mt-1 text-sm text-muted">No commitment — we&apos;ll come back with options and a quote.</p>
+              <LeadForm type="order" submitLabel="Send request" whatsappHref={wa} phone={site.phone} className="mt-6" />
+            </div>
+          </Reveal>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </PageTransition>
   );
 }

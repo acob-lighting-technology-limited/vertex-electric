@@ -52,7 +52,176 @@ body {
   outline-offset: 3px;
 }
 
+/* ---------- Intro curtain (first page view per session) ----------
+   Pure CSS so it runs before hydration with no flash. An inline script in
+   the root layout sets html[data-intro="seen"] on later views. */
+.vx-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: #06080b;
+  pointer-events: none;
+  animation: vx-curtain 0.8s cubic-bezier(0.76, 0, 0.24, 1) 1.15s forwards;
+}
+.vx-intro__logo {
+  width: min(62vw, 520px);
+  clip-path: inset(0 100% 0 0);
+  animation: vx-wipe 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+}
+.vx-intro__bar {
+  position: absolute;
+  left: 50%;
+  bottom: 18%;
+  height: 2px;
+  width: min(40vw, 320px);
+  translate: -50% 0;
+  transform-origin: left;
+  scale: 0 1;
+  background: var(--vx-blade);
+  animation: vx-bar 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+}
+html[data-intro="seen"] .vx-intro {
+  display: none;
+}
+@keyframes vx-wipe {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes vx-bar {
+  to {
+    scale: 1 1;
+  }
+}
+@keyframes vx-curtain {
+  to {
+    clip-path: inset(0 0 100% 0);
+    visibility: hidden;
+  }
+}
+
+@keyframes vx-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- Route transitions (React <ViewTransition>) ---------- */
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+::view-transition-group(.morph) {
+  animation-duration: 500ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+::view-transition-image-pair(.morph) {
+  animation-name: vx-via-blur;
+}
+::view-transition-old(.nav-forward) {
+  --slide-offset: -60px;
+  animation:
+    160ms ease-in both vx-fade reverse,
+    420ms cubic-bezier(0.22, 1, 0.36, 1) both vx-slide reverse;
+}
+::view-transition-new(.nav-forward) {
+  --slide-offset: 60px;
+  animation:
+    240ms ease-out 140ms both vx-fade,
+    420ms cubic-bezier(0.22, 1, 0.36, 1) both vx-slide;
+}
+::view-transition-old(.nav-back) {
+  --slide-offset: 60px;
+  animation:
+    160ms ease-in both vx-fade reverse,
+    420ms cubic-bezier(0.22, 1, 0.36, 1) both vx-slide reverse;
+}
+::view-transition-new(.nav-back) {
+  --slide-offset: -60px;
+  animation:
+    240ms ease-out 140ms both vx-fade,
+    420ms cubic-bezier(0.22, 1, 0.36, 1) both vx-slide;
+}
+::view-transition-old(.page-fade) {
+  animation: 180ms ease-in both vx-fade reverse;
+}
+::view-transition-new(.page-fade) {
+  animation: 320ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both vx-rise;
+}
+@keyframes vx-via-blur {
+  30% {
+    filter: blur(4px);
+  }
+}
+@keyframes vx-fade {
+  from {
+    filter: blur(4px);
+    opacity: 0;
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+@keyframes vx-slide {
+  from {
+    translate: var(--slide-offset);
+  }
+  to {
+    translate: 0;
+  }
+}
+@keyframes vx-rise {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    filter: blur(0);
+  }
+}
+
+/* ---------- Native <dialog> entrance (photo viewer) ---------- */
+dialog.vx-dialog {
+  opacity: 0;
+  transition:
+    opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    display 0.35s allow-discrete,
+    overlay 0.35s allow-discrete;
+}
+dialog.vx-dialog[open] {
+  opacity: 1;
+}
+@starting-style {
+  dialog.vx-dialog[open] {
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .vx-intro {
+    display: none;
+  }
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
   *,
   *::before,
   *::after {
@@ -60,5 +229,18 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Underline that draws in from the left on hover/focus. */
+@utility link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.45s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s;
+  &:hover,
+  &:focus-visible {
+    background-size: 100% 1px;
   }
 }

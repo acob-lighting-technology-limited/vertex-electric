@@ -1,9 +1,11 @@
 "use client";
 
-import { CheckCircle2, MessageCircle, Phone } from "lucide-react";
+import { Loader2, MessageCircle, Phone } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import { useActionState, useId } from "react";
 import { Button } from "@vertex/ui/primitives/button";
 import { cn } from "@vertex/ui/lib/cn";
+import { easeBlade } from "@vertex/ui/motion/easing";
 import { submitLead } from "@/app/actions/lead";
 import type { LeadState, LeadType } from "@/lib/leads";
 import { formatPhone } from "@/lib/site";
@@ -22,7 +24,7 @@ type Props = {
 const initial: LeadState = { status: "idle" };
 
 const fieldBase =
-  "w-full rounded-(--vx-radius) border border-line-strong bg-surface px-3.5 py-2.5 text-fg placeholder:text-muted/70 transition-colors focus:border-accent-text focus:outline-none aria-[invalid=true]:border-red-400";
+  "w-full rounded-(--vx-radius) border border-line-strong bg-surface px-3.5 py-2.5 text-fg placeholder:text-muted/70 transition-[border-color,box-shadow] duration-300 focus:border-accent-text focus:shadow-[0_0_0_4px_var(--vx-glow)] focus:outline-none aria-[invalid=true]:border-red-400";
 
 function Field({
   label,
@@ -38,21 +40,35 @@ function Field({
   const id = useId();
   const describedBy = error ? `${id}-error` : hint ? `${id}-hint` : undefined;
   return (
-    <div className="space-y-1.5">
+    <motion.div
+      className="space-y-1.5"
+      animate={error ? { x: [0, -6, 6, -4, 4, 0] } : { x: 0 }}
+      transition={{ duration: 0.4 }}
+    >
       <label htmlFor={id} className="block text-sm font-medium">
         {label}
       </label>
       {children({ id, "aria-invalid": Boolean(error), "aria-describedby": describedBy })}
-      {error ? (
-        <p id={`${id}-error`} className="text-sm text-red-400">
-          {error}
-        </p>
-      ) : hint ? (
-        <p id={`${id}-hint`} className="text-xs text-muted">
-          {hint}
-        </p>
-      ) : null}
-    </div>
+      <AnimatePresence initial={false} mode="wait">
+        {error ? (
+          <motion.p
+            key="error"
+            id={`${id}-error`}
+            className="text-sm text-red-400"
+            initial={{ opacity: 0, height: 0, y: -4 }}
+            animate={{ opacity: 1, height: "auto", y: 0 }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            {error}
+          </motion.p>
+        ) : hint ? (
+          <p key="hint" id={`${id}-hint`} className="text-xs text-muted">
+            {hint}
+          </p>
+        ) : null}
+      </AnimatePresence>
+    </motion.div>
   );
 }
 
@@ -76,13 +92,28 @@ export function LeadForm({ type, stockNumber, vehicleLabel, submitLabel, whatsap
 
   if (state.status === "sent") {
     return (
-      <div role="status" className={cn("rounded-(--vx-radius-lg) border border-line bg-surface p-6", className)}>
-        <CheckCircle2 className="size-6 text-accent-text" aria-hidden />
-        <p className="mt-3 font-display text-lg font-medium">Thank you — we&apos;ve got it.</p>
-        <p className="mt-1 text-muted">
+      <motion.div
+        role="status"
+        initial={{ opacity: 0, scale: 0.96, filter: "blur(6px)" }}
+        animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+        transition={{ duration: 0.6, ease: easeBlade }}
+        className={cn("rounded-(--vx-radius-lg) border border-line bg-surface p-8 text-center", className)}
+      >
+        <svg viewBox="0 0 52 52" className="mx-auto size-14" aria-hidden>
+          <motion.circle
+            cx="26" cy="26" r="24" fill="none" stroke="var(--vx-accent)" strokeWidth="2"
+            initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, ease: easeBlade }}
+          />
+          <motion.path
+            d="M15 27l7 7 15-16" fill="none" stroke="var(--vx-accent-text)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
+            initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.45, delay: 0.45, ease: easeBlade }}
+          />
+        </svg>
+        <p className="mt-5 font-display text-xl font-medium">Thank you — we&apos;ve got it.</p>
+        <p className="mt-2 text-muted">
           A Vertex advisor will contact you shortly{vehicleLabel ? ` about the ${vehicleLabel}` : ""}.
         </p>
-      </div>
+      </motion.div>
     );
   }
 
@@ -169,8 +200,15 @@ export function LeadForm({ type, stockNumber, vehicleLabel, submitLabel, whatsap
       </Field>
 
       <div aria-live="polite">
+        <AnimatePresence>
         {state.status === "unconfigured" && (
-          <div className="rounded-(--vx-radius) border border-line bg-surface-2 p-4 text-sm">
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4, ease: easeBlade }}
+            className="rounded-(--vx-radius) border border-line bg-surface-2 p-4 text-sm"
+          >
             <p className="font-medium">Online enquiries aren&apos;t live yet — your details were not sent.</p>
             {whatsappHref || phone ? (
               <p className="mt-2 flex flex-wrap gap-4 text-accent-text">
@@ -188,8 +226,9 @@ export function LeadForm({ type, stockNumber, vehicleLabel, submitLabel, whatsap
             ) : (
               <p className="mt-1 text-muted">Please check back shortly.</p>
             )}
-          </div>
+          </motion.div>
         )}
+        </AnimatePresence>
         {state.status === "error" && (
           <p className="rounded-(--vx-radius) border border-red-400/40 bg-red-400/10 p-4 text-sm">
             Something went wrong sending your request. Please try again{whatsappHref ? " or message us on WhatsApp" : ""}.
@@ -198,7 +237,13 @@ export function LeadForm({ type, stockNumber, vehicleLabel, submitLabel, whatsap
       </div>
 
       <Button type="submit" size="lg" disabled={pending} className="w-full sm:w-auto">
-        {pending ? "Sending…" : submitLabel}
+        {pending ? (
+          <>
+            <Loader2 className="size-4 animate-spin" aria-hidden /> Sending…
+          </>
+        ) : (
+          submitLabel
+        )}
       </Button>
       <p className="text-xs text-muted">We only use your details to respond to this request.</p>
     </form>

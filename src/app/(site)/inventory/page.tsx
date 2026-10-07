@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@vertex/ui/primitives/container";
 import { InventoryBrowser } from "@/components/inventory-browser";
+import { PageTransition } from "@/components/page-transition";
 import { SectionHeading } from "@/components/section-heading";
 import { getVehicles } from "@/lib/inventory";
 
@@ -12,7 +13,8 @@ export const metadata: Metadata = {
 export default async function InventoryPage() {
   const vehicles = await getVehicles();
   return (
-    <Container className="py-16 sm:py-20">
+    <PageTransition>
+    <Container className="py-16 sm:py-24">
       <SectionHeading
         as="h1"
         eyebrow="Inventory"
@@ -21,5 +23,6 @@ export default async function InventoryPage() {
       />
       <InventoryBrowser vehicles={vehicles} />
     </Container>
+    </PageTransition>
   );
 }
