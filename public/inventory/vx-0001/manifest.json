@@ -1,0 +1,72 @@
+[
+  {
+    "file": "01.webp",
+    "width": 810,
+    "height": 1080,
+    "source": "WhatsApp Image 2026-10-05 at 13.37.02 (1).jpeg",
+    "redactions": 0
+  },
+  {
+    "file": "02.webp",
+    "width": 1080,
+    "height": 810,
+    "source": "WhatsApp Image 2026-10-05 at 13.37.02 (2).jpeg",
+    "redactions": 1
+  },
+  {
+    "file": "03.webp",
+    "width": 1080,
+    "height": 810,
+    "source": "WhatsApp Image 2026-10-05 at 13.37.02.jpeg",
+    "redactions": 0
+  },
+  {
+    "file": "04.webp",
+    "width": 810,
+    "height": 1080,
+    "source": "WhatsApp Image 2026-10-05 at 13.37.03.jpeg",
+    "redactions": 1
+  },
+  {
+    "file": "05.webp",
+    "width": 1080,
+    "height": 810,
+    "source": "WhatsApp Image 2026-10-05 at 13.37.04 (1).jpeg",
+    "redactions": 0
+  },
+  {
+    "file": "06.webp",
+    "width": 1080,
+    "height": 810,
+    "source": "WhatsApp Image 2026-10-05 at 13.37.04.jpeg",
+    "redactions": 2
+  },
+  {
+    "file": "07.webp",
+    "width": 1080,
+    "height": 810,
+    "source": "WhatsApp Image 2026-10-05 at 13.37.05 (1).jpeg",
+    "redactions": 0
+  },
+  {
+    "file": "08.webp",
+    "width": 1080,
+    "height": 810,
+    "source": "WhatsApp Image 2026-10-05 at 13.37.05.jpeg",
+    "redactions": 0
+  },
+  {
+    "file": "09.webp",
+    "width": 810,
+    "height": 1080,
+    "source": "WhatsApp Image 2026-10-05 at 13.37.06.jpeg",
+    "redactions": 0
+  },
+  {
+    "file": "10.webp",
+    "width": 810,
+    "height": 1080,
+    "source": "WhatsApp Image 2026-10-05 at 13.37.07.jpeg",
+    "redactions": 2
+  }
+]

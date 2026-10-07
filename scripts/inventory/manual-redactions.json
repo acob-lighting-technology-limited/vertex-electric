@@ -1,0 +1,77 @@
+{
+  "_comment": "Boxes are [x0, y0, x1, y1] as fractions of the original photo. 'auto' toggles green NEV plate detection (off where foliage triggers false positives).",
+  "VX-0001": {
+    "auto": true,
+    "boxes": {
+      "WhatsApp Image 2026-10-05 at 13.37.02 (2).jpeg": [
+        [
+          0.84,
+          0.64,
+          0.93,
+          0.79
+        ]
+      ],
+      "WhatsApp Image 2026-10-05 at 13.37.04.jpeg": [
+        [
+          0.035,
+          0.62,
+          0.135,
+          0.78
+        ],
+        [
+          0.89,
+          0.36,
+          0.95,
+          0.41
+        ]
+      ],
+      "WhatsApp Image 2026-10-05 at 13.37.07.jpeg": [
+        [
+          0.08,
+          0.27,
+          0.2,
+          0.5
+        ]
+      ]
+    }
+  },
+  "VX-0002": {
+    "auto": false,
+    "boxes": {
+      "photo_1_2026-10-07_10-49-24.jpg": [
+        [
+          0.91,
+          0.69,
+          1.0,
+          0.78
+        ]
+      ],
+      "photo_3_2026-10-07_10-49-24.jpg": [
+        [
+          0.06,
+          0.63,
+          0.21,
+          0.73
+        ]
+      ],
+      "photo_8_2026-10-07_10-49-24.jpg": [
+        [
+          0.76,
+          0.6,
+          0.81,
+          0.7
+        ],
+        [
+          0.03,
+          0.22,
+          0.17,
+          0.56
+        ]
+      ]
+    }
+  },
+  "VX-0003": {
+    "auto": true,
+    "boxes": {}
+  }
+}

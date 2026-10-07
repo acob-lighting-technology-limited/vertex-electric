@@ -98,3 +98,12 @@ I then do the following:
 - **Posters:** extract AVIF poster frames. The poster is the LCP element, and video loads after idle.
 - **H3 sequence:** export H3 as a WebP frame sequence for the scroll scrub.
 - **Wire up:** connect everything to `prefers-reduced-motion` and `Save-Data` fallbacks.
+
+## Status (7 Oct 2026)
+
+- **Stills generated:** 4 takes each, at GPT Image 2.5 high, 2k. Chosen takes: **H1 take-2, H2 take-2, H3 take-1**. They're exported as posters to `public/media/hero/`.
+- **Motion tests:** each chosen still was run through Seedance 2.0 Mini at 720p (`assets/higgsfield/*/test-mini.mp4`).
+  - **H1:** the tracking loop works. The car holds position while the bridge streams past.
+  - **H3:** a clean, consistent orbit from front three-quarter to rear three-quarter.
+- **Next:** final Seedance 2.5 renders once the stills are approved.
+- **Raw renders are not committed.** Generate them with `scripts/higgsfield/gen-stills.sh` and `motion-test.sh`.

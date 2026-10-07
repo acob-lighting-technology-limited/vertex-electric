@@ -1,0 +1,30 @@
+[
+  {
+    "file": "01.webp",
+    "width": 1080,
+    "height": 608,
+    "source": "photo_1_2026-10-07_10-49-47.jpg",
+    "redactions": 0
+  },
+  {
+    "file": "02.webp",
+    "width": 1080,
+    "height": 608,
+    "source": "photo_2_2026-10-07_10-49-47.jpg",
+    "redactions": 0
+  },
+  {
+    "file": "03.webp",
+    "width": 908,
+    "height": 1080,
+    "source": "photo_3_2026-10-07_10-49-47.jpg",
+    "redactions": 0
+  },
+  {
+    "file": "04.webp",
+    "width": 1080,
+    "height": 608,
+    "source": "photo_4_2026-10-07_10-49-47.jpg",
+    "redactions": 0
+  }
+]
