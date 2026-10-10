@@ -22,7 +22,7 @@ function HeroCtas() {
   return (
     <>
       <Magnetic className="w-full sm:w-auto">
-        <ButtonLink href="/inventory" size="lg" className="w-full px-3 text-sm sm:w-auto sm:px-7 sm:text-base" transitionTypes={["nav-forward"]}>
+        <ButtonLink href="/inventory" size="lg" className="w-full px-3 text-sm whitespace-nowrap max-[359px]:px-2 max-[359px]:text-[13px] sm:w-auto sm:px-7 sm:text-base" transitionTypes={["nav-forward"]}>
           Browse inventory
           <ArrowRight className="hidden size-4 transition-transform group-hover/btn:translate-x-1 sm:block" aria-hidden />
         </ButtonLink>
@@ -31,7 +31,7 @@ function HeroCtas() {
         href="/order"
         size="lg"
         variant="ghost"
-        className="w-full border-white/25 bg-black/30 px-3 text-sm text-white backdrop-blur-sm hover:border-white sm:w-auto sm:px-7 sm:text-base"
+        className="w-full border-white/25 bg-black/30 px-3 text-sm whitespace-nowrap text-white backdrop-blur-sm hover:border-white max-[359px]:px-2 max-[359px]:text-[13px] sm:w-auto sm:px-7 sm:text-base"
         transitionTypes={["nav-forward"]}
       >
         Order on request
@@ -57,7 +57,7 @@ export function Hero() {
           <div className="grid grid-cols-2 gap-2.5 px-4 pb-4">
             <HeroCtas />
           </div>
-          <div className="border-t border-white/10 py-4">
+          <div className="border-t border-white/10 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
             <Marquee speed={28}>
               {journey.map((step) => (
                 <span key={step} className="flex items-center gap-4 pr-4 font-mono text-[11px] tracking-[0.25em] text-white/70 uppercase">
@@ -90,7 +90,8 @@ export function Hero() {
             className="mt-4 font-display text-5xl leading-[1.02] font-semibold tracking-tight sm:mt-6 sm:text-7xl lg:text-8xl"
           />
           <HeroItem order={0}>
-            <p className="mt-4 max-w-md text-base text-white/75 sm:mt-6 sm:text-lg">
+            {/* Very short phones (e.g. 320×568): the headline carries the hero alone so copy never sits on the car. */}
+            <p className="mt-4 max-w-md text-base text-white/75 [@media(max-height:620px)]:hidden sm:mt-6 sm:text-lg">
               Premium electric vehicles sourced from China and beyond — inspected, shipped and supported here in Nigeria.
             </p>
           </HeroItem>

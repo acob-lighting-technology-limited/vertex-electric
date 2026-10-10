@@ -22,6 +22,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
+  // Lets content use the full screen on notched phones; safe-area insets keep it clear of the home bar.
+  viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: dark)", color: "#06080b" },
     { media: "(prefers-color-scheme: light)", color: "#f6f7f9" },
