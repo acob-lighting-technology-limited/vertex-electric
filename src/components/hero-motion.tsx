@@ -10,7 +10,7 @@ const Ready = createContext(false);
 
 const INTRO_MS = 1250;
 
-export function HeroStage({ media, children }: { media: ReactNode; children: ReactNode }) {
+export function HeroStage({ media, children, footer }: { media: ReactNode; children: ReactNode; footer?: ReactNode }) {
   const ref = useRef<HTMLElement>(null);
   const [ready, setReady] = useState(false);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -63,6 +63,18 @@ export function HeroStage({ media, children }: { media: ReactNode; children: Rea
         <motion.div className="w-full" style={{ y: contentY, opacity: contentOpacity }}>
           {children}
         </motion.div>
+        {/* Anchored to the hero's bottom edge (outside the scroll-shifted content layer). */}
+        {footer && (
+          <motion.div
+            className="absolute inset-x-0 bottom-0"
+            style={{ opacity: contentOpacity }}
+            initial={{ y: 16 }}
+            animate={ready ? { y: 0 } : undefined}
+            transition={{ duration: 0.9, ease: easeBlade, delay: 0.9 }}
+          >
+            {footer}
+          </motion.div>
+        )}
       </section>
     </Ready.Provider>
   );
