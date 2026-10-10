@@ -62,14 +62,6 @@ function Frame({ frame, index, className }: { frame: StoryFrame; index: number; 
             <p className="mt-2 max-w-md text-sm text-white/75 sm:text-base">{frame.body}</p>
           </motion.div>
         </figcaption>
-        <a
-          href={frame.credit.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="absolute top-3 right-3 rounded-full bg-black/40 px-2.5 py-1 text-[10px] text-white/70 backdrop-blur transition-colors hover:text-white"
-        >
-          Photo: {frame.credit.name} / Unsplash
-        </a>
       </motion.div>
     </motion.figure>
   );

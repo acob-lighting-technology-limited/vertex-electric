@@ -1,6 +1,6 @@
 /**
  * "Made for Lagos" story frames. Photos are from Unsplash under the Unsplash
- * License (free for commercial use). Credits are shown on each frame anyway.
+ * License (free for commercial use; attribution not required). Credits are kept in CREDITS.md.
  * Locations are as listed by the photographer on Unsplash.
  */
 export type StoryFrame = {

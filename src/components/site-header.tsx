@@ -13,6 +13,9 @@ import { Container } from "@vertex/ui/primitives/container";
 import { ThemeToggle } from "@vertex/ui/theme/theme-toggle";
 import { nav } from "@/lib/site";
 
+/** Pages whose first section is a dark, full-bleed image (Hero / PageHero). */
+const HERO_ROUTES = new Set(["/", "/about", "/charging"]);
+
 const isActive = (pathname: string, href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
 export function SiteHeader({ whatsappHref }: { whatsappHref?: string }) {
@@ -45,8 +48,9 @@ export function SiteHeader({ whatsappHref }: { whatsappHref?: string }) {
     };
   }, [menuOpen]);
 
-  // Transparent only while sitting over the dark home hero; solid everywhere else.
-  const clear = pathname === "/" && !scrolled && !menuOpen;
+  // Transparent while sitting over a full-bleed photo hero (the nav pill keeps its glass);
+  // solid on scroll and on pages that start with plain content.
+  const clear = HERO_ROUTES.has(pathname) && !scrolled && !menuOpen;
   const activeHref = nav.find((n) => isActive(pathname, n.href))?.href ?? null;
   const pillTarget = hovered ?? activeHref;
 

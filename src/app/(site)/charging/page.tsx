@@ -102,14 +102,6 @@ export default function ChargingPage() {
             <Reveal className="relative min-h-80">
               <Image src={pageImages.solarDusk.lg} alt={pageImages.solarDusk.alt} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
               <div className="absolute inset-0 bg-[#0050fd]/10 mix-blend-color" />
-              <a
-                href={pageImages.solarDusk.credit.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute right-3 bottom-3 rounded-full bg-black/40 px-2.5 py-1 text-[10px] text-white/70 backdrop-blur hover:text-white"
-              >
-                Photo: {pageImages.solarDusk.credit.name} / Unsplash
-              </a>
             </Reveal>
             <div className="p-8 sm:p-12">
               <Reveal>

@@ -53,15 +53,6 @@ export default function NotFound() {
           </ul>
         </Reveal>
       </div>
-
-      <a
-        href={img.credit.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="absolute right-4 bottom-4 text-[10px] text-white/50 hover:text-white"
-      >
-        Photo: {img.credit.name} / Unsplash
-      </a>
     </main>
   );
 }

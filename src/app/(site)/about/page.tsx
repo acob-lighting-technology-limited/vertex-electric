@@ -79,14 +79,6 @@ export default function AboutPage() {
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-[#0050fd]/10 mix-blend-color" />
-              <a
-                href={pageImages.abujaTowers.credit.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute right-3 bottom-3 rounded-full bg-black/40 px-2.5 py-1 text-[10px] text-white/70 backdrop-blur hover:text-white"
-              >
-                Photo: {pageImages.abujaTowers.credit.name} / Unsplash
-              </a>
             </div>
             {/* Registration badge */}
             <div className="absolute -bottom-6 -left-4 rounded-(--vx-radius-lg) border border-line bg-surface/90 p-5 shadow-2xl backdrop-blur sm:-left-8">

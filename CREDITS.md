@@ -15,7 +15,7 @@
 | `public/media/pages/home-charger-*.webp` | Zaptec | https://unsplash.com/photos/a-person-is-plugging-in-to-a-wall-mounted-device-9QzxkWxMUik | — |
 | `public/media/pages/solar-dusk-*.webp` | Vivint Solar | https://unsplash.com/photos/a-house-with-a-solar-panel-on-the-roof-_ciUqT1HEuY | — |
 
-Credits are also shown on each frame on the site. Unsplash License: https://unsplash.com/license
+Attribution isn't required by the Unsplash License and isn't shown on the site; this file is the record. Unsplash License: https://unsplash.com/license
 
 ## Stock vehicles
 
