@@ -17,6 +17,29 @@ const video: HeroVideoSources = {
 
 const journey = ["Sourced", "Inspected", "Shipped", "Cleared", "Delivered"];
 
+/** The hero's two calls to action. Phones: equal columns; desktop: natural widths. */
+function HeroCtas() {
+  return (
+    <>
+      <Magnetic className="w-full sm:w-auto">
+        <ButtonLink href="/inventory" size="lg" className="w-full px-3 text-sm sm:w-auto sm:px-7 sm:text-base" transitionTypes={["nav-forward"]}>
+          Browse inventory
+          <ArrowRight className="hidden size-4 transition-transform group-hover/btn:translate-x-1 sm:block" aria-hidden />
+        </ButtonLink>
+      </Magnetic>
+      <ButtonLink
+        href="/order"
+        size="lg"
+        variant="ghost"
+        className="w-full border-white/25 bg-black/30 px-3 text-sm text-white backdrop-blur-sm hover:border-white sm:w-auto sm:px-7 sm:text-base"
+        transitionTypes={["nav-forward"]}
+      >
+        Order on request
+      </ButtonLink>
+    </>
+  );
+}
+
 export function Hero() {
   const common = { alt, sizes: "100vw", quality: 75 } as const;
   const {
@@ -29,15 +52,21 @@ export function Hero() {
   return (
     <HeroStage
       footer={
-        <div className="border-t border-white/10 bg-gradient-to-t from-[#06080b]/80 to-transparent py-4 sm:hidden">
-          <Marquee speed={28}>
-            {journey.map((step) => (
-              <span key={step} className="flex items-center gap-4 pr-4 font-mono text-[11px] tracking-[0.25em] text-white/70 uppercase">
-                {step}
-                <span aria-hidden className="h-1 w-5 skew-x-[-35deg] bg-(image:--vx-blade)" />
-              </span>
-            ))}
-          </Marquee>
+        // Phones: buttons sit in the thumb zone at the bottom, above the journey ticker.
+        <div className="bg-gradient-to-t from-[#06080b] via-[#06080b]/70 to-transparent pt-10 sm:hidden">
+          <div className="grid grid-cols-2 gap-2.5 px-4 pb-4">
+            <HeroCtas />
+          </div>
+          <div className="border-t border-white/10 py-4">
+            <Marquee speed={28}>
+              {journey.map((step) => (
+                <span key={step} className="flex items-center gap-4 pr-4 font-mono text-[11px] tracking-[0.25em] text-white/70 uppercase">
+                  {step}
+                  <span aria-hidden className="h-1 w-5 skew-x-[-35deg] bg-(image:--vx-blade)" />
+                </span>
+              ))}
+            </Marquee>
+          </div>
         </div>
       }
       media={
@@ -53,7 +82,7 @@ export function Hero() {
         </>
       }
     >
-      <Container className="pt-10 pb-16 sm:py-16 md:py-0">
+      <Container className="pt-10 pb-40 sm:py-16 md:py-0">
         <div className="max-w-2xl">
           <HeroEyebrow>Premium EVs · Nigeria</HeroEyebrow>
           <HeroHeadline
@@ -65,23 +94,8 @@ export function Hero() {
               Premium electric vehicles sourced from China and beyond — inspected, shipped and supported here in Nigeria.
             </p>
           </HeroItem>
-          {/* Phones: two equal columns so the pair reads as one unit; desktop: natural widths. */}
-          <HeroItem order={1} className="mt-7 grid grid-cols-2 gap-2.5 sm:mt-9 sm:flex sm:flex-wrap sm:items-center sm:gap-3">
-            <Magnetic className="w-full sm:w-auto">
-              <ButtonLink href="/inventory" size="lg" className="w-full px-3 text-sm sm:w-auto sm:px-7 sm:text-base" transitionTypes={["nav-forward"]}>
-                Browse inventory
-                <ArrowRight className="hidden size-4 transition-transform group-hover/btn:translate-x-1 sm:block" aria-hidden />
-              </ButtonLink>
-            </Magnetic>
-            <ButtonLink
-              href="/order"
-              size="lg"
-              variant="ghost"
-              className="w-full border-white/25 bg-black/25 px-3 text-sm text-white backdrop-blur-sm hover:border-white sm:w-auto sm:px-7 sm:text-base"
-              transitionTypes={["nav-forward"]}
-            >
-              Order on request
-            </ButtonLink>
+          <HeroItem order={1} className="mt-9 hidden sm:flex sm:flex-wrap sm:items-center sm:gap-3">
+            <HeroCtas />
           </HeroItem>
           <HeroItem order={2} className="mt-14 hidden sm:block">
             <ol className="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[11px] tracking-[0.2em] text-white/55 uppercase">
