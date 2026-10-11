@@ -47,7 +47,7 @@ export default function AboutPage() {
 
       {/* Who we are */}
       <section className="py-24 sm:py-32">
-        <Container className="grid gap-14 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+        <Container className="grid grid-cols-1 gap-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-center">
           <div>
             <Reveal>
               <p className="font-mono text-xs tracking-[0.3em] text-accent-text uppercase">Who we are</p>
@@ -97,7 +97,7 @@ export default function AboutPage() {
             <p className="font-mono text-xs tracking-[0.3em] text-accent-text uppercase">How we work</p>
           </Reveal>
           <MaskText text="Four promises, every car." className="mt-4 font-display text-4xl font-semibold tracking-tight sm:text-5xl" />
-          <Stagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" stagger={0.1}>
+          <Stagger className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4" stagger={0.1}>
             {principles.map((p) => (
               <StaggerItem key={p.title}>
                 <SpotlightCard className="h-full rounded-(--vx-radius-lg)">
@@ -121,7 +121,7 @@ export default function AboutPage() {
           <Reveal>
             <div className="relative overflow-hidden rounded-(--vx-radius-lg) border border-line bg-surface p-8 sm:p-14">
               <div aria-hidden className="absolute -top-40 -left-32 size-[28rem] rounded-full bg-[radial-gradient(circle,var(--vx-glow),transparent_70%)]" />
-              <div className="relative grid gap-12 lg:grid-cols-[1fr_1.2fr]">
+              <div className="relative grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
                 <div>
                   <p className="font-mono text-xs tracking-[0.3em] text-accent-text uppercase">Part of ACOB Group</p>
                   <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl">A decade of clean energy behind every car.</h2>

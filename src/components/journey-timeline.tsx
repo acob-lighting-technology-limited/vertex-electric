@@ -29,7 +29,7 @@ export function JourneyTimeline() {
         <motion.div className="h-full w-full origin-top bg-(image:--vx-blade)" style={{ scaleY: progress }} />
       </div>
 
-      <ol className="grid gap-10 lg:grid-cols-5 lg:gap-6">
+      <ol className="grid grid-cols-1 gap-10 lg:grid-cols-5 lg:gap-6">
         {steps.map((s, i) => (
           <motion.li
             key={s.title}

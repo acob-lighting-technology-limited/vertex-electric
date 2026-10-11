@@ -96,7 +96,7 @@ export default async function HomePage() {
                 </Link>
               </Reveal>
             </div>
-            <Stagger className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" stagger={0.12}>
+            <Stagger className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3" stagger={0.12}>
               {featured.map((v) => (
                 <StaggerItem key={v.slug}>
                   <VehicleCard vehicle={v} />
@@ -172,7 +172,7 @@ export default async function HomePage() {
               <SpotlightCard className="rounded-(--vx-radius-lg)" tilt={1.5}>
                 <div className="relative overflow-hidden rounded-(--vx-radius-lg) border border-line bg-surface p-8 sm:p-14">
                   <div aria-hidden className="absolute -top-32 -right-32 size-96 rounded-full bg-[radial-gradient(circle,var(--vx-glow),transparent_70%)]" />
-                  <div className="relative grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+                  <div className="relative grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:items-center">
                     <div>
                       <ChargeMeter />
                       <h2 className="mt-8 font-display text-4xl font-semibold tracking-tight">Charging, sorted.</h2>

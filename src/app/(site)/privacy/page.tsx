@@ -175,7 +175,7 @@ export default function PrivacyPage() {
     <PageTransition>
       <Container className="py-16 sm:py-24">
         <SectionHeading as="h1" eyebrow="Legal" title="Privacy policy" description={`Last updated ${LAST_UPDATED}`} />
-        <div className="mt-16 grid gap-12 lg:grid-cols-[15rem_1fr]">
+        <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-[15rem_minmax(0,1fr)]">
           <nav aria-label="On this page" className="hidden lg:block">
             <ol className="sticky top-24 space-y-2 text-sm">
               {sections.map((s, i) => (

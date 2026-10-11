@@ -60,7 +60,7 @@ export default function BrandPage() {
       <BladeDivider className="mt-10" />
 
       <Section title="Logo">
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="flex aspect-[2/1] items-center justify-center rounded-(--vx-radius-lg) bg-white p-8">
             <Logo variant="registration" ink="dark" className="w-full" />
           </div>
@@ -78,7 +78,7 @@ export default function BrandPage() {
         </div>
         <p className="text-sm text-muted">
           Files: <code className="font-mono">/public/brand/*.svg</code> · React:{" "}
-          <code className="font-mono">{"<Logo variant=\"wordmark\" | \"registration\" | \"mark\" />"}</code>
+          <code className="font-mono break-all">{"<Logo variant=\"wordmark\" | \"registration\" | \"mark\" />"}</code>
         </p>
       </Section>
 

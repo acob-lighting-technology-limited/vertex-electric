@@ -67,7 +67,7 @@ export default function ChargingPage() {
             <p className="font-mono text-xs tracking-[0.3em] text-accent-text uppercase">Three ways to charge</p>
           </Reveal>
           <MaskText text="Fill up without the filling station." className="mt-4 max-w-3xl font-display text-4xl font-semibold tracking-tight sm:text-5xl" />
-          <Stagger className="mt-12 grid gap-5 lg:grid-cols-3" stagger={0.12}>
+          <Stagger className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-3" stagger={0.12}>
             {methods.map((m) => (
               <StaggerItem key={m.title}>
                 <SpotlightCard className="h-full rounded-(--vx-radius-lg)">
@@ -136,7 +136,7 @@ export default function ChargingPage() {
 
       {/* Plug types */}
       <section className="py-24">
-        <Container className="grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:items-start">
+        <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:items-start">
           <div>
             <Reveal>
               <p className="font-mono text-xs tracking-[0.3em] text-accent-text uppercase">Good to know</p>
@@ -160,7 +160,7 @@ export default function ChargingPage() {
 
       {/* EV Hub + quote */}
       <section className="py-12">
-        <Container className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
+        <Container className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
           <Reveal>
             <div className="h-full rounded-(--vx-radius-lg) border border-dashed border-line-strong p-8">
               <p className="font-mono text-xs tracking-[0.3em] text-muted uppercase">Coming soon</p>

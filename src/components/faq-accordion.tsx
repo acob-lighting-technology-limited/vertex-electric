@@ -67,7 +67,7 @@ export function FaqAccordion({ groups }: { groups: FaqGroup[] }) {
   const group = groups.find((g) => g.id === active) ?? groups[0];
 
   return (
-    <div className="grid gap-10 lg:grid-cols-[16rem_1fr]">
+    <div className="grid grid-cols-1 gap-10 lg:grid-cols-[16rem_minmax(0,1fr)]">
       <LayoutGroup id="faq-tabs">
         <div role="tablist" aria-label="FAQ topics" className="flex gap-1 overflow-x-auto lg:sticky lg:top-24 lg:flex-col lg:self-start">
           {groups.map((g) => {

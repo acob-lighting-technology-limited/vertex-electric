@@ -88,8 +88,9 @@ export default async function VehiclePage({ params }: PageProps<"/inventory/[slu
           <ChevronLeft className="size-4 transition-transform group-hover:-translate-x-1" aria-hidden /> All inventory
         </Link>
 
-        <div className="mt-6 grid gap-10 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
-          <div>
+        {/* grid-cols-1 = minmax(0,1fr): without it the phone column grows to fit the thumbnail strip. */}
+        <div className="mt-6 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+          <div className="min-w-0">
             <VehicleGallery photos={v.photos} title={title} slug={v.slug} />
             {v.photoNote && <p className="mt-3 text-sm text-muted">{v.photoNote}</p>}
           </div>
@@ -132,7 +133,7 @@ export default async function VehiclePage({ params }: PageProps<"/inventory/[slu
           </div>
         </div>
 
-        <div className="mt-20 grid gap-12 lg:grid-cols-2">
+        <div className="mt-20 grid grid-cols-1 gap-12 lg:grid-cols-2">
           {rows.length > 0 && (
             <Reveal>
               <h2 className="font-display text-2xl font-medium">Details</h2>
