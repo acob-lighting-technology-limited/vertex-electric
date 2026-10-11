@@ -401,3 +401,12 @@ dialog.vx-dialog[open] {
   outline: 2px solid var(--vx-accent-text);
   outline-offset: 6px;
 }
+
+/* Background videos are decorative: never show the browser's own play/controls overlay
+   (iOS Safari draws a big play button when autoplay is refused). */
+.vx-bg-video::-webkit-media-controls,
+.vx-bg-video::-webkit-media-controls-start-playback-button,
+.vx-bg-video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+}

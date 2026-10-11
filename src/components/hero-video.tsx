@@ -9,15 +9,22 @@ export type HeroVideoSources = {
   mobile: { av1?: string; h264: string };
 };
 
+type Status = "loading" | "playing" | "paused" | "blocked";
+
 /**
  * Background loop layered over the poster image. The poster stays the LCP
  * element: the video is only attached after the browser is idle, and never
  * under prefers-reduced-motion or Save-Data.
+ *
+ * The video only becomes visible once it is actually playing. Browsers can refuse
+ * autoplay (iOS Low Power Mode, data savers) — then the poster simply stays, instead
+ * of showing a frozen frame under Safari's native play button. A blocked video gets
+ * one more try on the visitor's first touch or click, which counts as a user gesture.
  */
 export function HeroVideo({ sources }: { sources: HeroVideoSources }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [src, setSrc] = useState<{ av1?: string; h264: string } | null>(null);
-  const [playing, setPlaying] = useState(true);
+  const [status, setStatus] = useState<Status>("loading");
   const motionAllowed = useMotionAllowed();
 
   useEffect(() => {
@@ -32,7 +39,38 @@ export function HeroVideo({ sources }: { sources: HeroVideoSources }) {
     return () => clearTimeout(t);
   }, [motionAllowed, sources]);
 
+  // Start playback explicitly so a refusal can be detected (autoplay alone fails silently).
+  useEffect(() => {
+    const v = ref.current;
+    if (!v || !src) return;
+    // iOS decides autoplay from the muted *attribute*; React only sets the property.
+    v.muted = true;
+    v.defaultMuted = true;
+    v.setAttribute("muted", "");
+
+    let retry: (() => void) | null = null;
+    v.play().catch(() => {
+      setStatus("blocked");
+      retry = () => {
+        void v.play().catch(() => {});
+        if (retry) {
+          window.removeEventListener("pointerdown", retry);
+          window.removeEventListener("touchstart", retry);
+        }
+      };
+      window.addEventListener("pointerdown", retry, { once: true, passive: true });
+      window.addEventListener("touchstart", retry, { once: true, passive: true });
+    });
+    return () => {
+      if (retry) {
+        window.removeEventListener("pointerdown", retry);
+        window.removeEventListener("touchstart", retry);
+      }
+    };
+  }, [src]);
+
   if (!src || !motionAllowed) return null;
+  const visible = status === "playing" || status === "paused";
 
   return (
     <>
@@ -42,28 +80,33 @@ export function HeroVideo({ sources }: { sources: HeroVideoSources }) {
         muted
         loop
         playsInline
-        preload="none"
+        disablePictureInPicture
+        disableRemotePlayback
+        preload="auto"
         aria-hidden
-        className="absolute inset-0 size-full object-cover object-[50%_70%] opacity-0 transition-opacity md:object-[70%_50%] duration-1000 data-[ready=true]:opacity-100"
-        onCanPlay={(e) => e.currentTarget.setAttribute("data-ready", "true")}
+        tabIndex={-1}
+        className={`vx-bg-video absolute inset-0 size-full object-cover object-[50%_70%] transition-opacity duration-1000 md:object-[70%_50%] ${visible ? "opacity-100" : "opacity-0"}`}
+        onPlaying={() => setStatus("playing")}
+        onPause={() => setStatus((s) => (s === "playing" ? "paused" : s))}
       >
         {src.av1 && <source src={src.av1} type='video/mp4; codecs="av01.0.08M.08"' />}
         <source src={src.h264} type="video/mp4" />
       </video>
-      <button
-        type="button"
-        onClick={() => {
-          const v = ref.current;
-          if (!v) return;
-          if (v.paused) void v.play();
-          else v.pause();
-          setPlaying(!v.paused);
-        }}
-        aria-label={playing ? "Pause background video" : "Play background video"}
-        className="absolute bottom-4 left-4 z-10 rounded-full bg-black/50 p-2.5 text-white backdrop-blur hover:bg-black/70"
-      >
-        {playing ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-      </button>
+      {visible && (
+        <button
+          type="button"
+          onClick={() => {
+            const v = ref.current;
+            if (!v) return;
+            if (v.paused) void v.play();
+            else v.pause();
+          }}
+          aria-label={status === "playing" ? "Pause background video" : "Play background video"}
+          className="absolute bottom-4 left-4 z-10 rounded-full bg-black/50 p-2.5 text-white backdrop-blur hover:bg-black/70 max-sm:hidden"
+        >
+          {status === "playing" ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
+        </button>
+      )}
     </>
   );
 }
