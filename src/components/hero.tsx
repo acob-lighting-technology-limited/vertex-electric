@@ -1,7 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { getImageProps } from "next/image";
 import { Magnetic } from "@vertex/ui/motion/magnetic";
-import { Marquee } from "@vertex/ui/motion/marquee";
 import { ButtonLink } from "@vertex/ui/primitives/button";
 import { Container } from "@vertex/ui/primitives/container";
 import { HeroEyebrow, HeroHeadline, HeroItem, HeroStage, ScrollCue } from "./hero-motion";
@@ -52,20 +51,11 @@ export function Hero() {
   return (
     <HeroStage
       footer={
-        // Phones: buttons sit in the thumb zone at the bottom, above the journey ticker.
+        // Phones: buttons sit in the thumb zone at the bottom. The kinetic steps strip
+        // directly below the hero carries the journey, so no ticker here.
         <div className="bg-gradient-to-t from-[#06080b] via-[#06080b]/70 to-transparent pt-10 sm:hidden">
-          <div className="grid grid-cols-2 gap-2.5 px-4 pb-4">
+          <div className="grid grid-cols-2 gap-2.5 px-4 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
             <HeroCtas />
-          </div>
-          <div className="border-t border-white/10 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
-            <Marquee speed={28}>
-              {journey.map((step) => (
-                <span key={step} className="flex items-center gap-4 pr-4 font-mono text-[11px] tracking-[0.25em] text-white/70 uppercase">
-                  {step}
-                  <span aria-hidden className="h-1 w-5 skew-x-[-35deg] bg-(image:--vx-blade)" />
-                </span>
-              ))}
-            </Marquee>
           </div>
         </div>
       }
@@ -82,7 +72,7 @@ export function Hero() {
         </>
       }
     >
-      <Container className="pt-10 pb-40 sm:py-16 md:py-0">
+      <Container className="pt-10 pb-32 sm:py-16 md:py-0">
         <div className="max-w-2xl">
           <HeroEyebrow>Premium EVs · Nigeria</HeroEyebrow>
           <HeroHeadline

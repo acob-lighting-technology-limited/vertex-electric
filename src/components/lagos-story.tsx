@@ -98,10 +98,10 @@ function Intro() {
         variants={introItem}
         className="mt-5 font-display text-4xl leading-[1.05] font-semibold tracking-tight text-balance sm:text-6xl"
       >
-        Made for the way Lagos moves.
+        Made for the way Nigeria moves.
       </motion.h2>
       <motion.p variants={introItem} className="mt-5 max-w-sm text-lg text-muted">
-        From VI evenings to weekend beach runs — what driving electric looks like here.
+        From Abuja&apos;s wide avenues to the Lagos go-slow — what driving electric looks like here.
       </motion.p>
       <motion.p
         variants={introItem}
@@ -118,8 +118,8 @@ function Intro() {
 }
 
 /**
- * Desktop: the section pins and vertical scroll drives the strip sideways.
- * Phones and reduced motion: a native, snap-scrolling horizontal strip.
+ * The section pins and vertical scroll drives the strip sideways — on phones too
+ * (uniform 4:5 cards there). Reduced motion / Save-Data: a native, snap-scrolling strip.
  */
 export function LagosStory({ frames }: { frames: StoryFrame[] }) {
   const motionAllowed = useMotionAllowed();
@@ -127,14 +127,11 @@ export function LagosStory({ frames }: { frames: StoryFrame[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [distance, setDistance] = useState(0);
   const [endPad, setEndPad] = useState(0);
-  const [pinned, setPinned] = useState(false);
 
-  // Measure how far the track must travel; pin only on wide screens.
+  // Measure how far the track must travel.
   // Right padding is sized so the last photo comes to rest centred, not against the edge.
   useLayoutEffect(() => {
     const measure = () => {
-      const wide = window.matchMedia("(min-width: 768px)").matches;
-      setPinned(wide);
       const track = trackRef.current;
       if (!track) return;
       const last = track.lastElementChild as HTMLElement | null;
@@ -154,9 +151,9 @@ export function LagosStory({ frames }: { frames: StoryFrame[] }) {
       ro.disconnect();
       window.removeEventListener("resize", measure);
     };
-  }, [motionAllowed, pinned]);
+  }, [motionAllowed]);
 
-  const usePin = pinned && motionAllowed;
+  const usePin = motionAllowed;
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
   const smooth = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.3 });
   // Hold → travel → hold. The rail and counter only track the travel phase.
@@ -169,7 +166,7 @@ export function LagosStory({ frames }: { frames: StoryFrame[] }) {
 
   if (!usePin) {
     return (
-      <section ref={sectionRef} aria-label="Life with an EV in Lagos" className="py-24">
+      <section ref={sectionRef} aria-label="Life with an EV in Nigeria" className="py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
           <Intro />
         </div>
@@ -187,20 +184,21 @@ export function LagosStory({ frames }: { frames: StoryFrame[] }) {
   }
 
   return (
-    <section ref={sectionRef} aria-label="Life with an EV in Lagos" style={{ height: `calc(100svh + ${runway}px)` }} className="relative">
+    <section ref={sectionRef} aria-label="Life with an EV in Nigeria" style={{ height: `calc(100svh + ${runway}px)` }} className="relative">
       <div className="sticky top-0 flex h-svh flex-col justify-center overflow-hidden">
         <motion.div
           ref={trackRef}
           style={{ x, paddingRight: endPad }}
-          className="flex h-[72svh] items-stretch gap-6 pl-[max(1.5rem,calc((100vw-80rem)/2+2.5rem))] will-change-transform"
+          className="flex h-[72svh] items-center gap-4 pl-[max(1rem,calc((100vw-80rem)/2+2.5rem))] will-change-transform md:items-stretch md:gap-6"
         >
           <Intro />
           {frames.map((f, i) => (
-            <Frame key={f.slug} frame={f} index={i} className="h-full" />
+            <Frame key={f.slug} frame={f} index={i} className="w-[78vw] max-w-sm max-md:aspect-[4/5] md:h-full md:w-auto md:max-w-none" />
           ))}
         </motion.div>
         {/* Progress rail */}
-        <div className="absolute inset-x-0 bottom-8 mx-auto flex w-[min(80rem,calc(100vw-5rem))] items-center gap-4">
+        {/* Raised on phones so the floating WhatsApp button never covers it. */}
+        <div className="absolute inset-x-0 bottom-24 mx-auto flex w-[min(80rem,calc(100vw-2rem))] items-center gap-4 md:bottom-8 md:w-[min(80rem,calc(100vw-5rem))]">
           <span className="font-mono text-xs text-muted">{String(Math.min(frames.length, Math.floor(progress * frames.length) + 1)).padStart(2, "0")}</span>
           <div className="relative h-px flex-1 bg-line">
             <motion.div className="absolute inset-y-0 left-0 w-full origin-left bg-(image:--vx-blade)" style={{ scaleX: rail }} />
