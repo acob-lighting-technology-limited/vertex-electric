@@ -60,6 +60,7 @@
   --vx-on-accent: #ffffff;
   --vx-logo-ink: var(--vx-paper);
   --vx-glow: rgb(0 80 253 / 0.35);
+  --vx-danger: #f87171; /* ~7:1 on the dark ground */
   --scrollbar-thumb: var(--vx-accent);
 }
 
@@ -77,5 +78,6 @@
   --vx-on-accent: #ffffff;
   --vx-logo-ink: var(--vx-ink);
   --vx-glow: rgb(0 80 253 / 0.18);
+  --vx-danger: #c81e1e; /* ~5.4:1 on the light ground; #f87171 would be ~2.6:1 */
   --scrollbar-thumb: var(--vx-accent);
 }

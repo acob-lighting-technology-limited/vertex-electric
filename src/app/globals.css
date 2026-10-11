@@ -22,6 +22,23 @@
   --color-ink: var(--vx-ink);
   --color-paper: var(--vx-paper);
 
+  /* shadcn/ui semantic names, mapped onto the Vertex tokens. (shadcn's bg-muted is not
+     mapped: --color-muted is Vertex's muted *text* colour; shadcn files use surface-2.) */
+  --color-background: var(--vx-bg);
+  --color-foreground: var(--vx-fg);
+  --color-border: var(--vx-line);
+  --color-input: var(--vx-line-strong);
+  --color-ring: var(--vx-accent-text);
+  --color-primary: var(--vx-accent);
+  --color-primary-foreground: var(--vx-on-accent);
+  --color-secondary: var(--vx-surface-2);
+  --color-secondary-foreground: var(--vx-fg);
+  --color-muted-foreground: var(--vx-muted);
+  --color-accent-foreground: var(--vx-on-accent);
+  --color-destructive: var(--vx-danger);
+  --color-popover: var(--vx-surface);
+  --color-popover-foreground: var(--vx-fg);
+
   --font-display: var(--font-unbounded);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);

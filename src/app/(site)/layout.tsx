@@ -2,6 +2,7 @@ import { Logo } from "@vertex/ui/brand/logo";
 import { MotionProvider } from "@vertex/ui/motion/motion-provider";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { Toaster } from "@/components/ui/sonner";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { whatsappHref } from "@/lib/site";
 
@@ -28,6 +29,7 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <WhatsAppButton />
+        <Toaster position="top-center" />
         <SiteFooter />
       </div>
     </MotionProvider>
