@@ -8,7 +8,7 @@ const unbounded = Unbounded({ variable: "--font-unbounded", subsets: ["latin"], 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://vertexevsolutions.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://vertexelectricsolutions.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

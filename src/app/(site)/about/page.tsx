@@ -1,4 +1,4 @@
-import { ArrowRight, Camera, ClipboardCheck, Headset, MessageSquareText, Sun, Zap } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Camera, ClipboardCheck, Headset, MessageSquareText, Sun, Zap } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { CountUp } from "@vertex/ui/motion/count-up";
@@ -11,7 +11,7 @@ import { Container } from "@vertex/ui/primitives/container";
 import { PageHero } from "@/components/page-hero";
 import { PageTransition } from "@/components/page-transition";
 import { pageImages } from "@/lib/page-media";
-import { site } from "@/lib/site";
+import { site, sister } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About Vertex",
@@ -151,12 +151,22 @@ export default function AboutPage() {
                     <p className="mt-1 text-sm text-muted">Solar and backup power — including home charging systems for Vertex customers.</p>
                   </div>
                 </StaggerItem>
-                <StaggerItem className="flex gap-4 rounded-(--vx-radius) border border-dashed border-line-strong p-6">
-                  <Zap className="size-6 shrink-0 text-accent-text" aria-hidden />
-                  <div>
-                    <p className="font-display text-lg">Vertex EV Hub · coming soon</p>
-                    <p className="mt-1 text-sm text-muted">A public charging network from our sister company.</p>
-                  </div>
+                <StaggerItem>
+                  <a
+                    href={sister.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex gap-4 rounded-(--vx-radius) border border-dashed border-line-strong p-6 transition-colors hover:border-accent-text"
+                  >
+                    <Zap className="size-6 shrink-0 text-accent-text" aria-hidden />
+                    <div className="flex-1">
+                      <p className="flex items-center gap-2 font-display text-lg">
+                        Vertex EV Hub
+                        <ArrowUpRight className="size-4 text-accent-text transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
+                      </p>
+                      <p className="mt-1 text-sm text-muted">Public and fleet EV charging, and chargers hosted at partner sites.</p>
+                    </div>
+                  </a>
                 </StaggerItem>
               </Stagger>
             </div>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Logo } from "@vertex/ui/brand/logo";
 import { Reveal } from "@vertex/ui/motion/reveal";
 import { Container } from "@vertex/ui/primitives/container";
-import { footerNav, formatPhone, site, whatsappHref } from "@/lib/site";
+import { footerNav, formatPhone, site, whatsappHref, sister } from "@/lib/site";
 import { CopyrightYear } from "./copyright-year";
 import { FooterWordmark } from "./footer-wordmark";
 
@@ -75,6 +75,12 @@ export function SiteFooter() {
           </Link>
         </p>
         <p>Vehicle names and marks belong to their manufacturers; Vertex is an independent importer.</p>
+        <p>
+          Public &amp; fleet charging:{" "}
+          <a href={sister.href} target="_blank" rel="noopener noreferrer" className="link-underline text-fg">
+            {sister.name} ↗
+          </a>
+        </p>
       </Container>
     </footer>
   );

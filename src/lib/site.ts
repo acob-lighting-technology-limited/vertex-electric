@@ -9,7 +9,7 @@ export const site = {
   legalName: "Vertex Electric Solutions Limited",
   rc: "9872444",
   parent: "ACOB Group",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://vertexevsolutions.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://vertexelectricsolutions.com",
   whatsapp: (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "").replace(/\D/g, ""),
   phone: process.env.NEXT_PUBLIC_PHONE || "",
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "",
@@ -27,6 +27,15 @@ export function whatsappHref(message: string) {
   if (!site.whatsapp) return undefined;
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(message)}`;
 }
+
+/** Sister site for public and fleet charging (charging services sit with EV Hub; Vertex sells EVs and chargers). */
+export const sister = {
+  name: "Vertex EV Hub",
+  short: "EV Hub",
+  blurb: "Public & fleet charging",
+  href: process.env.NEXT_PUBLIC_EV_HUB_URL || "https://www.vertexevhub.com",
+  dot: "#ff6a3d",
+};
 
 export const nav = [
   { href: "/inventory", label: "Inventory" },

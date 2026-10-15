@@ -1,4 +1,4 @@
-import { ArrowRight, BatteryCharging, CloudSun, Gauge, Plug, PlugZap, Zap } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BatteryCharging, CloudSun, Gauge, Plug, PlugZap, Zap } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { MaskText } from "@vertex/ui/motion/mask-text";
@@ -11,7 +11,7 @@ import { LeadForm } from "@/components/lead-form";
 import { PageHero } from "@/components/page-hero";
 import { PageTransition } from "@/components/page-transition";
 import { pageImages } from "@/lib/page-media";
-import { site, whatsappHref } from "@/lib/site";
+import { site, sister, whatsappHref } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Charging",
@@ -163,15 +163,19 @@ export default function ChargingPage() {
         <Container className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
           <Reveal>
             <div className="h-full rounded-(--vx-radius-lg) border border-dashed border-line-strong p-8">
-              <p className="font-mono text-xs tracking-[0.3em] text-muted uppercase">Coming soon</p>
+              <p className="font-mono text-xs tracking-[0.3em] text-muted uppercase">Charging away from home</p>
               <h2 className="mt-4 font-display text-3xl font-semibold">Vertex EV Hub</h2>
               <p className="mt-4 text-muted">
-                Our sister company is building public charging for Nigerian EV drivers. We&apos;ll share locations and launch dates as soon as
-                they&apos;re confirmed.
+                Public charging, fleet and depot charging, and chargers hosted at businesses are run by our sister company, Vertex EV Hub.
               </p>
-              <ButtonLink href="/range-planner" variant="ghost" className="mt-8" transitionTypes={["nav-forward"]}>
-                Plan your range <ArrowRight className="size-4" aria-hidden />
-              </ButtonLink>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <ButtonLink href={sister.href} target="_blank" rel="noopener noreferrer">
+                  Visit Vertex EV Hub <ArrowUpRight className="size-4" aria-hidden />
+                </ButtonLink>
+                <ButtonLink href="/range-planner" variant="ghost" transitionTypes={["nav-forward"]}>
+                  Plan your range <ArrowRight className="size-4" aria-hidden />
+                </ButtonLink>
+              </div>
             </div>
           </Reveal>
           <Reveal delay={0.15}>

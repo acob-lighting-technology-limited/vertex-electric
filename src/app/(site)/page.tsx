@@ -15,6 +15,7 @@ import { PageTransition } from "@/components/page-transition";
 import { ScrollOrbit } from "@/components/scroll-orbit";
 import { VehicleCard } from "@/components/vehicle-card";
 import { getFeaturedVehicles } from "@/lib/inventory";
+import { sister } from "@/lib/site";
 import { storyFrames } from "@/lib/stories";
 
 const reasons = [
@@ -186,10 +187,15 @@ export default async function HomePage() {
                           Charger installation with optional solar and battery backup from ACOB Lighting.
                         </p>
                       </StaggerItem>
-                      <StaggerItem className="rounded-(--vx-radius) border border-dashed border-line-strong p-6">
-                        <p className="font-mono text-xs tracking-[0.2em] text-muted uppercase">Coming soon</p>
-                        <p className="mt-3 font-display text-lg">Vertex EV Hub</p>
-                        <p className="mt-2 text-sm text-muted">A public charging network from our sister company. Launch details soon.</p>
+                      <StaggerItem>
+                        <a href={sister.href} target="_blank" rel="noopener noreferrer" className="group block rounded-(--vx-radius) border border-dashed border-line-strong p-6 transition-colors hover:border-accent-text">
+                          <p className="font-mono text-xs tracking-[0.2em] text-muted uppercase">Sister company</p>
+                          <p className="mt-3 flex items-center gap-2 font-display text-lg">
+                            Vertex EV Hub
+                            <ArrowUpRight className="size-4 text-accent-text transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
+                          </p>
+                          <p className="mt-2 text-sm text-muted">Public and fleet charging, plus chargers hosted at places you already stop.</p>
+                        </a>
                       </StaggerItem>
                     </Stagger>
                   </div>

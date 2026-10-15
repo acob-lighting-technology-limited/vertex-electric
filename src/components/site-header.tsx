@@ -17,7 +17,7 @@ import { easeBlade } from "@vertex/ui/motion/easing";
 import { getLenis } from "@vertex/ui/motion/motion-provider";
 import { Container } from "@vertex/ui/primitives/container";
 import { ThemeToggle } from "@vertex/ui/theme/theme-toggle";
-import { nav } from "@/lib/site";
+import { nav, sister } from "@/lib/site";
 
 /** Pages whose first section is a dark, full-bleed image (Hero / PageHero). */
 const HERO_ROUTES = new Set(["/", "/about", "/charging"]);
@@ -135,6 +135,25 @@ export function SiteHeader({ whatsappHref }: { whatsappHref?: string }) {
         </nav>
 
         <div className="relative z-10 flex items-center gap-2">
+          <a
+            href={sister.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${sister.name}: ${sister.blurb} (opens in a new tab)`}
+            className={cn(
+              "group hidden h-10 items-center gap-2 rounded-full border px-4 text-sm transition-colors lg:inline-flex",
+              clear
+                ? "border-white/15 bg-black/20 text-white/80 backdrop-blur-md hover:border-white/40 hover:text-white"
+                : "border-line text-muted hover:border-line-strong hover:text-fg",
+            )}
+          >
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex size-full rounded-full opacity-60 group-hover:animate-ping motion-reduce:animate-none" style={{ background: sister.dot }} />
+              <span className="relative inline-flex size-2 rounded-full" style={{ background: sister.dot }} />
+            </span>
+            {sister.short}
+            <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
+          </a>
           <ThemeToggle
             className={cn(
               clear && "border-white/20 text-white hover:bg-white/10",
@@ -247,6 +266,25 @@ export function SiteHeader({ whatsappHref }: { whatsappHref?: string }) {
                       </li>
                     ))}
                   </motion.ul>
+                  <div className="space-y-3">
+                  <motion.a
+                    href={sister.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0, transition: { delay: 0.45, duration: 0.6, ease: easeBlade } }}
+                    exit={{ opacity: 0 }}
+                    className="flex items-center justify-between rounded-(--vx-radius-lg) border border-dashed border-line-strong p-5"
+                  >
+                    <span>
+                      <span className="flex items-center gap-2 text-sm text-muted">
+                        <span className="size-2 rounded-full" style={{ background: sister.dot }} />
+                        Sister site · {sister.blurb}
+                      </span>
+                      <span className="font-display text-lg">{sister.name}</span>
+                    </span>
+                    <ArrowUpRight className="size-5 text-accent-text" aria-hidden />
+                  </motion.a>
                   {whatsappHref && (
                     <motion.a
                       href={whatsappHref}
@@ -263,7 +301,7 @@ export function SiteHeader({ whatsappHref }: { whatsappHref?: string }) {
                         },
                       }}
                       exit={{ opacity: 0 }}
-                      className="inline-flex items-center justify-between rounded-(--vx-radius-lg) border border-line bg-surface p-5"
+                      className="flex items-center justify-between rounded-(--vx-radius-lg) border border-line bg-surface p-5"
                     >
                       <span>
                         <span className="block text-sm text-muted">
@@ -279,6 +317,7 @@ export function SiteHeader({ whatsappHref }: { whatsappHref?: string }) {
                       />
                     </motion.a>
                   )}
+                  </div>
                 </Container>
               </motion.div>
             )}
